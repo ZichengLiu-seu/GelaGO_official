@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dataset — GelaGO</title>
+<meta name="description" content="The GelaGO dataset: synchronized head pose, gaze, and avatar trajectory recordings from 15 participants across three VR locomotion techniques and three virtual scenes.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231b4f8f'/><text x='16' y='23' font-family='system-ui,sans-serif' font-size='18' font-weight='700' fill='white' text-anchor='middle'>M</text></svg>">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html">GelaGO</a>
+    <nav>
+      <a href="index.html">Overview</a>
+      <a href="dataset.html" class="active">Dataset</a>
+      <a href="code.html">Code</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <section class="hero" style="padding-bottom:34px;">
+      <div class="venue">Dataset</div>
+      <h1 style="font-size:clamp(24px,3.4vw,32px);">Synchronized VR Locomotion Recordings</h1>
+      <p class="affil" style="margin-bottom:0;">
+        Head pose, binocular gaze, and avatar trajectory under three locomotion techniques
+      </p>
+    </section>
+
+    <section class="block">
+      <h2>Composition</h2>
+      <div class="stats">
+        <div class="stat"><span class="num">15</span><span class="lbl">Participants</span></div>
+        <div class="stat"><span class="num">3 &times; 3</span><span class="lbl">Techniques &times; Scenes</span></div>
+        <div class="stat"><span class="num">130</span><span class="lbl">CSV recordings</span></div>
+        <div class="stat"><span class="num">397 MB</span><span class="lbl">Uncompressed</span></div>
+      </div>
+      <p style="margin-top:18px;">
+        Participants are identified by numeric folder only. No name, age, gender, or any other
+        identifying attribute is included in the release.
+      </p>
+
+      <h3>Locomotion techniques</h3>
+      <ul class="plain">
+        <li><code>Swing</code> — continuous arm-swing driven locomotion</li>
+        <li><code>Teleport</code> — discrete point-and-teleport</li>
+        <li><code>Touchpad</code> — continuous joystick locomotion</li>
+      </ul>
+
+      <h3>Virtual scenes</h3>
+      <ul class="plain">
+        <li><code>Maze</code> — corridor layout with occluded sightlines</li>
+        <li><code>Park</code> — open outdoor environment</li>
+        <li><code>Complex</code> — mixed indoor and outdoor layout</li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <h2>Archive layout</h2>
+      <p>
+        Each participant folder holds one CSV per technique and scene combination. The file name encodes
+        both, for example <code>1/SwingMazeSceneData.csv</code>.
+      </p>
+      <pre><code>OpenSourceDataset/
+├── Readme.txt
+├── 1/
+│   ├── SwingMazeSceneData.csv
+│   ├── SwingParkSceneData.csv
+│   ├── SwingComplexSceneData.csv
+│   ├── TeleportMazeSceneData.csv
+│   └── ... (9 files per complete participant)
+├── 2/
+│   └── ...
+└── 15/</code></pre>
+      <p class="muted" style="font-size:14.5px;">
+        Three participant folders contain fewer than nine recordings. The missing combinations are
+        visible from the file names.
+      </p>
+    </section>
+
+    <section class="block">
+      <h2>Feature schema</h2>
+      <p>Every CSV has a header row and 21 columns. One row corresponds to one sampled frame.</p>
+      <table>
+        <thead>
+          <tr><th class="mono">Column</th><th>Type</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="mono">time</td><td>float</td><td>Timestamp in seconds</td></tr>
+          <tr><td class="mono">pos_x, pos_y, pos_z</td><td>float</td><td>Head position in world coordinates</td></tr>
+          <tr><td class="mono">rat_w, rat_x, rat_y, rat_z</td><td>float</td><td>Head orientation as a quaternion</td></tr>
+          <tr><td class="mono">left_eye_openness</td><td>float</td><td>Left eye openness</td></tr>
+          <tr><td class="mono">right_eye_openness</td><td>float</td><td>Right eye openness</td></tr>
+          <tr><td class="mono">left_eye_dir_w, x, y, z</td><td>float</td><td>Left gaze direction as a quaternion</td></tr>
+          <tr><td class="mono">right_eye_dir_w, x, y, z</td><td>float</td><td>Right gaze direction as a quaternion</td></tr>
+          <tr><td class="mono">vr_pos_x, vr_pos_z</td><td>float</td><td>Avatar position on the ground plane</td></tr>
+          <tr><td class="mono">is_walking</td><td>bool</td><td>Locomotion state flag</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="block">
+      <h2>Download</h2>
+      <div class="callout">
+        <strong>The archive is encrypted with AES-256.</strong>
+        The extraction password is provided in the supplementary material of the paper and is deliberately
+        not published here. Downloading the file does not grant access to its contents.
+      </div>
+
+      <div class="dl">
+        <div class="dl-info">
+          <div class="dl-name">OpenSourceDataset.7z</div>
+          <div class="dl-meta">78.3 MB &middot; AES-256 &middot; filename encryption enabled</div>
+        </div>
+        <a class="btn primary" href="files/OpenSourceDataset.7z" download>Download archive</a>
+      </div>
+
+      <h3>Verify the download</h3>
+      <p>Compare the digest of the file you received against the value below.</p>
+      <pre><code>sha256sum OpenSourceDataset.7z
+# expected
+7e0d8c887010d42ae2a1e38629307a0dffb624e7ebee3ecc6394a1fb9f99e371</code></pre>
+
+      <h3>Extract</h3>
+      <p>Enter the password when prompted. Both commands produce the same directory tree.</p>
+      <pre><code># 7-Zip
+7z x OpenSourceDataset.7z
+
+# Python
+pip install py7zr
+python -c "import py7zr; py7zr.SevenZipFile('OpenSourceDataset.7z').extractall('.')"</code></pre>
+      <p class="muted" style="font-size:14.5px;">
+        The Python snippet prompts for the password interactively. On macOS without 7-Zip installed,
+        Keka or The Unarchiver both open this archive.
+      </p>
+    </section>
+
+    <section class="block">
+      <h2>Usage terms</h2>
+      <p>
+        The archive is provided to support review and reproduction of the results reported in the paper.
+        Redistribution of the archive or its contents is not permitted. A formal license will be applied
+        when the dataset is publicly released.
+      </p>
+      <p class="muted" style="font-size:14.5px;">
+        The recordings contain no personally identifying information. Participant identifiers are numeric
+        and carry no link to the original consent records.
+      </p>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>GelaGO Project &middot; Southeast University</span>
+    <span><a href="index.html">Back to overview</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

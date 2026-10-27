@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GelaGO — Locomotion Prediction in Virtual Reality</title>
+<meta name="description" content="Project page for GelaGO: graph-based locomotion prediction in virtual reality from synchronized head pose and gaze signals. Dataset and code release.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231b4f8f'/><text x='16' y='23' font-family='system-ui,sans-serif' font-size='18' font-weight='700' fill='white' text-anchor='middle'>M</text></svg>">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html">GelaGO</a>
+    <nav>
+      <a href="index.html" class="active">Overview</a>
+      <a href="dataset.html">Dataset</a>
+      <a href="code.html">Code</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <section class="hero">
+      <div class="venue">IEEE TVCG</div>
+      <!-- TODO: 换成论文完整标题 -->
+      <h1>GelaGO</h1>
+      <p class="subtitle">Locomotion prediction in virtual reality from head pose and gaze signals</p>
+      <!-- TODO: 补全作者列表与上标单位编号 -->
+      <p class="authors">Zicheng Liu</p>
+      <p class="affil">Southeast University</p>
+      <div class="actions">
+        <!-- TODO: Paper 按钮换成正式 PDF 链接 -->
+        <a class="btn primary" href="#">Paper (PDF)</a>
+        <a class="btn" href="dataset.html">Dataset</a>
+        <a class="btn" href="code.html">Code</a>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>Overview</h2>
+      <!-- TODO: 可替换为论文 abstract 原文 -->
+      <p class="lead">
+        This project studies continuous locomotion prediction in virtual reality from low-dimensional
+        head-mounted display signals. Each recording synchronizes head pose, binocular gaze direction,
+        eye openness, and avatar position on the ground plane, which together describe where a user is
+        looking, where the head is oriented, and where the avatar is heading.
+      </p>
+      <p>
+        The model encodes the synchronized streams jointly rather than treating them as independent
+        channels, and forecasts future avatar displacement from the observed history. The released data
+        covers three locomotion techniques across three virtual scenes, recorded from 15 participants
+        under a common protocol.
+      </p>
+    </section>
+
+    <section class="block">
+      <h2>Dataset at a glance</h2>
+      <div class="stats">
+        <div class="stat"><span class="num">15</span><span class="lbl">Participants</span></div>
+        <div class="stat"><span class="num">3 &times; 3</span><span class="lbl">Techniques &times; Scenes</span></div>
+        <div class="stat"><span class="num">130</span><span class="lbl">Synchronized recordings</span></div>
+        <div class="stat"><span class="num">21</span><span class="lbl">Features per frame</span></div>
+      </div>
+      <p class="muted" style="margin-top:14px;font-size:14.5px;">
+        Three locomotion techniques, Swing, Teleport, and Touchpad, each recorded in the Maze, Park, and
+        Complex scenes. Every recording is a single CSV file with one row per sampled frame.
+      </p>
+      <p style="margin-top:18px;">
+        <a href="dataset.html">Dataset details and download &rarr;</a>
+      </p>
+    </section>
+
+    <section class="block">
+      <h2>Access</h2>
+      <p>
+        The data archive is distributed as an AES-256 encrypted 7z file and can be downloaded directly
+        from this site.
+      </p>
+      <div class="callout">
+        <strong>The extraction password is not published on this page.</strong>
+        It is provided in the supplementary material of the paper. Downloading the archive alone does not
+        give access to its contents.
+      </div>
+      <p>
+        Source code is maintained in a separate repository. The repository is private while the paper is
+        under review and will be made public upon publication. See the
+        <a href="code.html">code page</a> for the current status.
+      </p>
+    </section>
+
+    <section class="block">
+      <h2>Citation</h2>
+      <!-- TODO: 补充完整标题、作者、卷期页码与 DOI -->
+      <pre><code>@article{liu2026gelago,
+  title     = {GelaGO},
+  author    = {Liu, Zicheng and others},
+  journal   = {IEEE Transactions on Visualization and Computer Graphics},
+  year      = {2026}
+}</code></pre>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>GelaGO Project &middot; Southeast University</span>
+    <span>Last updated October 2026</span>
+  </div>
+</footer>
+
+</body>
+</html>

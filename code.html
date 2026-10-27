@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code — GelaGO</title>
+<meta name="description" content="Source code for GelaGO: locomotion prediction in virtual reality from head pose and gaze signals.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231b4f8f'/><text x='16' y='23' font-family='system-ui,sans-serif' font-size='18' font-weight='700' fill='white' text-anchor='middle'>M</text></svg>">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html">GelaGO</a>
+    <nav>
+      <a href="index.html">Overview</a>
+      <a href="dataset.html">Dataset</a>
+      <a href="code.html" class="active">Code</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <section class="hero" style="padding-bottom:34px;">
+      <div class="venue">Code</div>
+      <h1 style="font-size:clamp(24px,3.4vw,32px);">Training and Evaluation Code</h1>
+      <p class="affil" style="margin-bottom:0;">
+        Reference implementation of the prediction pipeline
+      </p>
+    </section>
+
+    <section class="block">
+      <h2>Repository status</h2>
+      <div class="note">
+        <strong>Private during review.</strong>
+        The repository is accessible to the editors and reviewers through the link below and will be made
+        public upon publication. Public visitors will see a 404 until then.
+      </div>
+      <!-- TODO: 换成真实仓库地址 -->
+      <div class="dl">
+        <div class="dl-info">
+          <div class="dl-name">github.com/ZichengLiu-seu/GelaGO</div>
+          <div class="dl-meta">Private repository &middot; access granted on publication</div>
+        </div>
+        <a class="btn" href="https://github.com/ZichengLiu-seu/GelaGO" target="_blank" rel="noopener">Open repository</a>
+      </div>
+      <p class="muted" style="font-size:14.5px;">
+        If you need access before publication, the repository can be shared directly with a GitHub
+        account upon request.
+      </p>
+    </section>
+
+    <section class="block">
+      <h2>What the repository contains</h2>
+      <ul class="plain">
+        <li>Data loading and preprocessing for the released CSV recordings</li>
+        <li>Model definition and training objective</li>
+        <li>Training and evaluation scripts for the reported configurations</li>
+        <li>Configuration files matching each table and figure in the paper</li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <h2>Environment</h2>
+      <!-- TODO: 按实际依赖补全版本号 -->
+      <pre><code>python >= 3.9
+torch >= 2.0
+numpy, pandas, scikit-learn</code></pre>
+      <p>
+        Install the dependencies into a clean environment before running any script.
+      </p>
+      <pre><code>git clone https://github.com/ZichengLiu-seu/GelaGO.git
+cd GelaGO
+pip install -r requirements.txt</code></pre>
+    </section>
+
+    <section class="block">
+      <h2>Workflow</h2>
+      <p>Three steps, in order.</p>
+      <pre><code># 1. point the loader at the extracted archive
+export GELAGO_DATA=/path/to/OpenSourceDataset
+
+# 2. train
+python train.py --config configs/default.yaml
+
+# 3. evaluate
+python evaluate.py --config configs/default.yaml --checkpoint runs/best.pt</code></pre>
+      <!-- TODO: 命令名与参数按实际结构调整 -->
+      <p class="muted" style="font-size:14.5px;">
+        Script names above reflect the released layout. If your checkout differs, refer to the README
+        inside the repository, which is kept in sync with the code.
+      </p>
+    </section>
+
+    <section class="block">
+      <h2>Data</h2>
+      <p>
+        The recordings are distributed separately from the code as an encrypted archive. Extraction
+        requires the password given in the supplementary material.
+      </p>
+      <p><a href="dataset.html">Dataset page and download &rarr;</a></p>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>GelaGO Project &middot; Southeast University</span>
+    <span><a href="index.html">Back to overview</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
