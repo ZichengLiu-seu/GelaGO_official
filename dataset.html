@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dataset — GelaGO</title>
-<meta name="description" content="The GelaGO dataset: synchronized head pose, gaze, and avatar trajectory recordings from 15 participants across three VR locomotion techniques and three virtual scenes.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231b4f8f'/><text x='16' y='23' font-family='system-ui,sans-serif' font-size='18' font-weight='700' fill='white' text-anchor='middle'>M</text></svg>">
+<meta name="description" content="VR locomotion recordings from 15 participants across three locomotion techniques and three virtual scenes, captured as synchronized head pose and gaze streams at 90 Hz.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231b4f8f'/><text x='16' y='23' font-family='system-ui,sans-serif' font-size='18' font-weight='700' fill='white' text-anchor='middle'>G</text></svg>">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -26,9 +26,28 @@
 
     <section class="hero" style="padding-bottom:34px;">
       <div class="venue">Dataset</div>
-      <h1 style="font-size:clamp(24px,3.4vw,32px);">Synchronized VR Locomotion Recordings</h1>
+      <h1 style="font-size:clamp(24px,3.4vw,32px);">VR Locomotion Recordings</h1>
       <p class="affil" style="margin-bottom:0;">
         Head pose, binocular gaze, and avatar trajectory under three locomotion techniques
+      </p>
+    </section>
+
+    <section class="block">
+      <h2>Data acquisition</h2>
+      <p>
+        The recordings come from an object-finding task. Participants walked continuously toward a blue
+        marker circle; once they reached it, the circle reappeared at a random nearby location, keeping
+        them moving for the whole session. Each participant completed a three-minute trial with every
+        locomotion technique in every scene, preceded by a ninety-second acclimation period whenever a
+        new technique was introduced.
+      </p>
+      <p>
+        Fifteen volunteers took part, aged 16 to 26 with a mean of 21.53 and a standard deviation of
+        2.50, seven of whom identified as female. Motion and gaze were captured with an HTC VIVE Pro Eye
+        running at 90 Hz with VIVE SRAnipal eye tracking, and the virtual scenes were built in Unity3D
+        2021.3.8f1c1. Segments lost to equipment failure or cybersickness were excluded, leaving roughly
+        2,098,800 samples, about 96 percent of the recorded duration. A Savitzky-Golay filter of 60 frames
+        is applied to smooth the motion streams before training.
       </p>
     </section>
 
@@ -47,17 +66,42 @@
 
       <h3>Locomotion techniques</h3>
       <ul class="plain">
-        <li><code>Swing</code> — continuous arm-swing driven locomotion</li>
+        <li><code>Arm-Swing</code> — in-place arm swinging, a walking-based technique</li>
+        <li><code>Touchpad</code> — continuous joystick steering, a controller-based technique</li>
         <li><code>Teleport</code> — discrete point-and-teleport</li>
-        <li><code>Touchpad</code> — continuous joystick locomotion</li>
       </ul>
+    </section>
 
-      <h3>Virtual scenes</h3>
-      <ul class="plain">
-        <li><code>Maze</code> — corridor layout with occluded sightlines</li>
-        <li><code>Park</code> — open outdoor environment</li>
-        <li><code>Complex</code> — mixed indoor and outdoor layout</li>
-      </ul>
+    <section class="block">
+      <h2>Virtual scenes</h2>
+      <p>
+        The three scenes differ mainly in the breadth of the field of view, which in turn shapes how
+        participants direct their gaze while walking.
+      </p>
+      <div class="scenes">
+        <figure class="scene">
+          <img src="assets/img/maze.png" alt="Maze scene screenshot">
+          <figcaption>
+            <strong>Maze</strong>
+            Narrow corridors and small rooms, the narrowest field of view of the three.
+          </figcaption>
+        </figure>
+        <figure class="scene">
+          <img src="assets/img/park.png" alt="Park scene screenshot">
+          <figcaption>
+            <strong>Park</strong>
+            A relatively spacious outdoor layout with moderate sightlines.
+          </figcaption>
+        </figure>
+        <figure class="scene">
+          <img src="assets/img/village.png" alt="Village scene screenshot">
+          <figcaption>
+            <strong>Village</strong>
+            The widest field of view with few occlusions. Released as <code>Complex</code> in the file
+            names.
+          </figcaption>
+        </figure>
+      </div>
     </section>
 
     <section class="block">
@@ -92,10 +136,10 @@
         </thead>
         <tbody>
           <tr><td class="mono">time</td><td>float</td><td>Timestamp in seconds</td></tr>
-          <tr><td class="mono">pos_x, pos_y, pos_z</td><td>float</td><td>Head position in world coordinates</td></tr>
+          <tr><td class="mono">pos_x, pos_y, pos_z</td><td>float</td><td>Head position in physical space</td></tr>
           <tr><td class="mono">rat_w, rat_x, rat_y, rat_z</td><td>float</td><td>Head orientation as a quaternion</td></tr>
-          <tr><td class="mono">left_eye_openness</td><td>float</td><td>Left eye openness</td></tr>
-          <tr><td class="mono">right_eye_openness</td><td>float</td><td>Right eye openness</td></tr>
+          <tr><td class="mono">left_eye_openness</td><td>float</td><td>Left eye openness in [0, 1]</td></tr>
+          <tr><td class="mono">right_eye_openness</td><td>float</td><td>Right eye openness in [0, 1]</td></tr>
           <tr><td class="mono">left_eye_dir_w, x, y, z</td><td>float</td><td>Left gaze direction as a quaternion</td></tr>
           <tr><td class="mono">right_eye_dir_w, x, y, z</td><td>float</td><td>Right gaze direction as a quaternion</td></tr>
           <tr><td class="mono">vr_pos_x, vr_pos_z</td><td>float</td><td>Avatar position on the ground plane</td></tr>
@@ -106,38 +150,13 @@
 
     <section class="block">
       <h2>Download</h2>
-      <div class="callout">
-        <strong>The archive is encrypted with AES-256.</strong>
-        The extraction password is provided in the supplementary material of the paper and is deliberately
-        not published here. Downloading the file does not grant access to its contents.
-      </div>
-
       <div class="dl">
         <div class="dl-info">
           <div class="dl-name">OpenSourceDataset.7z</div>
-          <div class="dl-meta">78.3 MB &middot; AES-256 &middot; filename encryption enabled</div>
+          <div class="dl-meta">78.3 MB</div>
         </div>
-        <a class="btn primary" href="files/OpenSourceDataset.7z" download>Download archive</a>
+        <a class="btn primary" href="files/OpenSourceDataset.7z" download>Download</a>
       </div>
-
-      <h3>Verify the download</h3>
-      <p>Compare the digest of the file you received against the value below.</p>
-      <pre><code>sha256sum OpenSourceDataset.7z
-# expected
-7e0d8c887010d42ae2a1e38629307a0dffb624e7ebee3ecc6394a1fb9f99e371</code></pre>
-
-      <h3>Extract</h3>
-      <p>Enter the password when prompted. Both commands produce the same directory tree.</p>
-      <pre><code># 7-Zip
-7z x OpenSourceDataset.7z
-
-# Python
-pip install py7zr
-python -c "import py7zr; py7zr.SevenZipFile('OpenSourceDataset.7z').extractall('.')"</code></pre>
-      <p class="muted" style="font-size:14.5px;">
-        The Python snippet prompts for the password interactively. On macOS without 7-Zip installed,
-        Keka or The Unarchiver both open this archive.
-      </p>
     </section>
 
     <section class="block">

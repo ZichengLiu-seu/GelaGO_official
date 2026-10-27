@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GelaGO — Locomotion Prediction in Virtual Reality</title>
-<meta name="description" content="Project page for GelaGO: graph-based locomotion prediction in virtual reality from synchronized head pose and gaze signals. Dataset and code release.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231b4f8f'/><text x='16' y='23' font-family='system-ui,sans-serif' font-size='18' font-weight='700' fill='white' text-anchor='middle'>M</text></svg>">
+<title>GelaGO — A VR Locomotion Prediction Method via Graph Model</title>
+<meta name="description" content="Project page for GelaGO: A VR Locomotion Prediction Method via Graph Model (IEEE VR 2026). Dataset and code release.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231b4f8f'/><text x='16' y='23' font-family='system-ui,sans-serif' font-size='18' font-weight='700' fill='white' text-anchor='middle'>G</text></svg>">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -25,12 +25,12 @@
   <div class="wrap">
 
     <section class="hero">
-      <div class="venue">IEEE TVCG</div>
-      <!-- TODO: 换成论文完整标题 -->
-      <h1>GelaGO</h1>
-      <p class="subtitle">Locomotion prediction in virtual reality from head pose and gaze signals</p>
-      <!-- TODO: 补全作者列表与上标单位编号 -->
-      <p class="authors">Zicheng Liu</p>
+      <div class="venue">IEEE VR 2026</div>
+      <h1>GelaGO: A VR Locomotion Prediction Method<br>via Graph Model</h1>
+      <p class="authors">
+        <a href="mailto:dingding-1@seu.edu.cn">Ding Ding</a>,
+        Zicheng Liu, Xiangyu Xu, Fan Liu, Jinghui Zhang
+      </p>
       <p class="affil">Southeast University</p>
       <div class="actions">
         <!-- TODO: Paper 按钮换成正式 PDF 链接 -->
@@ -42,18 +42,15 @@
 
     <section class="block">
       <h2>Overview</h2>
-      <!-- TODO: 可替换为论文 abstract 原文 -->
       <p class="lead">
-        This project studies continuous locomotion prediction in virtual reality from low-dimensional
-        head-mounted display signals. Each recording synchronizes head pose, binocular gaze direction,
-        eye openness, and avatar position on the ground plane, which together describe where a user is
-        looking, where the head is oriented, and where the avatar is heading.
+        GelaGO casts locomotion prediction as a graph learning problem. Head pose, gaze direction,
+        eye openness, and avatar motion form the nodes of a per-frame graph, and a Mamba-based sequence
+        encoder models how that graph evolves over time to forecast the avatar's future displacement.
       </p>
       <p>
-        The model encodes the synchronized streams jointly rather than treating them as independent
-        channels, and forecasts future avatar displacement from the observed history. The released data
-        covers three locomotion techniques across three virtual scenes, recorded from 15 participants
-        under a common protocol.
+        The method is trained and evaluated on recordings from fifteen participants across three
+        locomotion techniques and three virtual scenes, each captured as a synchronized stream of
+        head-mounted display signals sampled at 90 Hz.
       </p>
     </section>
 
@@ -66,8 +63,8 @@
         <div class="stat"><span class="num">21</span><span class="lbl">Features per frame</span></div>
       </div>
       <p class="muted" style="margin-top:14px;font-size:14.5px;">
-        Three locomotion techniques, Swing, Teleport, and Touchpad, each recorded in the Maze, Park, and
-        Complex scenes. Every recording is a single CSV file with one row per sampled frame.
+        Arm-Swing, Touchpad, and Teleport, each recorded in the Maze, Park, and Village scenes.
+        Every recording is a single CSV file with one row per sampled frame.
       </p>
       <p style="margin-top:18px;">
         <a href="dataset.html">Dataset details and download &rarr;</a>
@@ -75,30 +72,12 @@
     </section>
 
     <section class="block">
-      <h2>Access</h2>
-      <p>
-        The data archive is distributed as an AES-256 encrypted 7z file and can be downloaded directly
-        from this site.
-      </p>
-      <div class="callout">
-        <strong>The extraction password is not published on this page.</strong>
-        It is provided in the supplementary material of the paper. Downloading the archive alone does not
-        give access to its contents.
-      </div>
-      <p>
-        Source code is maintained in a separate repository. The repository is private while the paper is
-        under review and will be made public upon publication. See the
-        <a href="code.html">code page</a> for the current status.
-      </p>
-    </section>
-
-    <section class="block">
       <h2>Citation</h2>
-      <!-- TODO: 补充完整标题、作者、卷期页码与 DOI -->
-      <pre><code>@article{liu2026gelago,
-  title     = {GelaGO},
-  author    = {Liu, Zicheng and others},
-  journal   = {IEEE Transactions on Visualization and Computer Graphics},
+      <!-- TODO: 补充页码与 DOI -->
+      <pre><code>@inproceedings{ding2026gelago,
+  title     = {GelaGO: A VR Locomotion Prediction Method via Graph Model},
+  author    = {Ding, Ding and Liu, Zicheng and Xu, Xiangyu and Liu, Fan and Zhang, Jinghui},
+  booktitle = {IEEE Conference on Virtual Reality and 3D User Interfaces (VR)},
   year      = {2026}
 }</code></pre>
     </section>

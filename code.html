@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Code — GelaGO</title>
-<meta name="description" content="Source code for GelaGO: locomotion prediction in virtual reality from head pose and gaze signals.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231b4f8f'/><text x='16' y='23' font-family='system-ui,sans-serif' font-size='18' font-weight='700' fill='white' text-anchor='middle'>M</text></svg>">
+<meta name="description" content="Official implementation of GelaGO: A VR Locomotion Prediction Method via Graph Model.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231b4f8f'/><text x='16' y='23' font-family='system-ui,sans-serif' font-size='18' font-weight='700' fill='white' text-anchor='middle'>G</text></svg>">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -26,10 +26,10 @@
 
     <section class="hero" style="padding-bottom:34px;">
       <div class="venue">Code</div>
-      <h1 style="font-size:clamp(24px,3.4vw,32px);">Training and Evaluation Code</h1>
-      <p class="affil" style="margin-bottom:0;">
-        Reference implementation of the prediction pipeline
-      </p>
+      <h1 style="font-size:clamp(20px,2.6vw,27px);line-height:1.42;">
+        Official Implementation of<br>GelaGO: A VR Locomotion Prediction Method via Graph Model
+      </h1>
+      <p class="affil" style="margin-bottom:0;">PyTorch reference implementation</p>
     </section>
 
     <section class="block">
@@ -54,52 +54,61 @@
     </section>
 
     <section class="block">
-      <h2>What the repository contains</h2>
-      <ul class="plain">
-        <li>Data loading and preprocessing for the released CSV recordings</li>
-        <li>Model definition and training objective</li>
-        <li>Training and evaluation scripts for the reported configurations</li>
-        <li>Configuration files matching each table and figure in the paper</li>
-      </ul>
-    </section>
-
-    <section class="block">
       <h2>Environment</h2>
-      <!-- TODO: 按实际依赖补全版本号 -->
-      <pre><code>python >= 3.9
-torch >= 2.0
-numpy, pandas, scikit-learn</code></pre>
       <p>
-        Install the dependencies into a clean environment before running any script.
+        Python 3.10 or newer, with a CUDA-capable GPU for the Mamba kernels. The encoder depends on
+        <code>mamba-ssm</code>, which compiles CUDA extensions at install time and needs a matching
+        CUDA toolkit on the machine.
       </p>
-      <pre><code>git clone https://github.com/ZichengLiu-seu/GelaGO.git
-cd GelaGO
-pip install -r requirements.txt</code></pre>
+      <pre><code>pip install torch numpy pandas scikit-learn
+pip install mamba-ssm</code></pre>
+      <p>
+        Training runs five-fold cross validation with two held-out test subjects. Each fold builds its
+        own loaders, trains with early stopping, and reports on the held-out subjects.
+      </p>
     </section>
 
     <section class="block">
-      <h2>Workflow</h2>
-      <p>Three steps, in order.</p>
-      <pre><code># 1. point the loader at the extracted archive
-export GELAGO_DATA=/path/to/OpenSourceDataset
+      <h2>Data preparation</h2>
+      <p>
+        The loader expects a directory named <code>motion</code> with one subfolder per participant,
+        holding the CSV recordings for that participant.
+      </p>
+      <pre><code>LocomotionDataset/
+└── motion/
+    ├── 1/
+    │   ├── SwingMazeScenesmoothData.csv
+    │   └── ...
+    ├── 2/
+    └── ...</code></pre>
+      <p>
+        Only files whose names end in <code>ScenesmoothData.csv</code> are read, so a smoothed
+        counterpart is required next to every recording. Set <code>data_dir</code> in the config to the
+        parent of <code>motion</code> before running.
+      </p>
+    </section>
 
-# 2. train
-python train.py --config configs/default.yaml
-
-# 3. evaluate
-python evaluate.py --config configs/default.yaml --checkpoint runs/best.pt</code></pre>
-      <!-- TODO: 命令名与参数按实际结构调整 -->
-      <p class="muted" style="font-size:14.5px;">
-        Script names above reflect the released layout. If your checkout differs, refer to the README
-        inside the repository, which is kept in sync with the code.
+    <section class="block">
+      <h2>Run</h2>
+      <p>
+        Four configs ship with the repository, one per locomotion technique plus a combined setting.
+        Each points at a <code>data_dir</code> that must be adjusted to your local path.
+      </p>
+      <pre><code>python main.py --config_path="configs/GelaGO/gelago-touch.json"
+python main.py --config_path="configs/GelaGO/gelago-tele.json"
+python main.py --config_path="configs/GelaGO/gelago-swing.json"
+python main.py --config_path="configs/GelaGO/gelago-all.json"</code></pre>
+      <p>
+        The four commands are also collected in <code>start.sh</code>. Logs are written to
+        <code>results/&lt;model&gt;/&lt;interaction&gt;/output.log</code>, and the cross-validation summary is
+        printed at the end of each run.
       </p>
     </section>
 
     <section class="block">
       <h2>Data</h2>
       <p>
-        The recordings are distributed separately from the code as an encrypted archive. Extraction
-        requires the password given in the supplementary material.
+        The recordings are distributed separately from the code as a compressed archive.
       </p>
       <p><a href="dataset.html">Dataset page and download &rarr;</a></p>
     </section>

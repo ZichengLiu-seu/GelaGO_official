@@ -118,6 +118,17 @@ a:hover { text-decoration: underline; }
 
 .authors .sep { color: var(--muted); margin: 0 2px; }
 
+.authors a {
+  color: var(--text);
+  border-bottom: 1px dotted #b8c2d0;
+}
+
+.authors a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  text-decoration: none;
+}
+
 .affil {
   font-size: 14.5px;
   color: var(--muted);
@@ -334,6 +345,43 @@ td.mono, th.mono { font-family: var(--mono); font-size: 13px; }
 
 .dl-meta { font-size: 13.2px; color: var(--muted); }
 
+/* ---------- scene grid ---------- */
+
+.scenes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  max-width: 720px;
+  margin: 20px 0 6px;
+}
+
+.scene { margin: 0; }
+
+.scene img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg-soft);
+}
+
+.scene figcaption {
+  font-size: 13.2px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin-top: 9px;
+}
+
+.scene figcaption strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 640;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
 /* ---------- misc ---------- */
 
 ul.plain { padding-left: 20px; margin: 0 0 16px; }
@@ -355,6 +403,7 @@ footer .wrap {
 
 @media (max-width: 720px) {
   .stats { grid-template-columns: repeat(2, 1fr); }
+  .scenes { grid-template-columns: 1fr; }
   .hero { padding: 44px 0 32px; }
   .nav nav { gap: 18px; }
   .wrap { padding: 0 18px; }
